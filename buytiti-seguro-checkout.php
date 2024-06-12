@@ -63,6 +63,15 @@ function mostrar_input_seguro() {
                     mensaje = 'Cuidado: Estás quitando el seguro de compra.';
                     icono = 'error';
                 }
+                Swal.fire({
+                    title: mensaje,
+                    icon: icono,
+                    confirmButtonText: 'OK',
+                    didClose: function() {
+                        location.reload();
+                    }
+                });
+
                 $.ajax({
                     type: 'POST',
                     url: '<?php echo admin_url('admin-ajax.php'); ?>',
@@ -71,12 +80,7 @@ function mostrar_input_seguro() {
                         seguro: seguro
                     },
                     success: function(response) {
-                        Swal.fire({
-                            title: mensaje,
-                            icon: icono,
-                            confirmButtonText: 'OK'
-                        });
-                        location.reload();
+                        console.log('Seguro actualizado correctamente.');
                     }
                 });
             });
